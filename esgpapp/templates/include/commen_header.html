@@ -1,0 +1,56 @@
+<style>
+
+</style>
+
+
+
+<nav class="navbar navbar-expand navbar-dark {% if name.faculty_or_student == 'Student' %} bg-dark {% else %} bg-success {% endif %}">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">Early Student Grade Prediction - ESGP </a>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %} active {% endif %}" aria-current="page" href="{% url 'dashboard' %}"> Dashboard <small>({% if name.faculty_or_student == 'Student' %}Student{% else %}Faculty{% endif %})</small> </a> 
+        </li>
+
+         <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'cal_pre' %} active {% endif %}" aria-current="page" href="{% url 'cal_pre' %}">Grade Prediction</a>
+        </li>
+      
+        
+      </ul>
+        
+
+      <a href="{% url 'logout' %}" class="btn btn-outline-info" type="submit"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+        
+    </div>
+  </div>
+</nav>
+
+{% comment %} {% if name.is_authenticated  %}
+<nav id="navbar">
+<ul class="ul">
+  <li class="li"><a class="navbar-brand" href="{% url 'landingpage' %}">Early Student Grade Prediction (ESGP) </a></li>
+  <li class="li"><a class="active" href="#home">Home</a></li>
+  <li class="li"><a href="#news">News</a></li>
+  <li class="li"><a href="#contact">Contact</a></li>
+  <li class="li" style="float:right"><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+</nav>
+
+{% else %}
+
+<nav id="navbar">
+<ul class="ul">
+  <li class="li"><a class="navbar-brand" href="{% url 'landingpage' %}">Early Student Grade Prediction (ESGP) </a></li>
+  <li class="li" style="float:right"><a href="{% url 'signup' %}">signup</a></li>
+  <li class="li" style="float:right"><a href="{% url 'login' %}">Login</a></li>
+</ul>
+</nav>
+
+{% endif %} {% endcomment %}
+
+
+

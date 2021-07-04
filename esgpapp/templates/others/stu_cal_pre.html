@@ -1,0 +1,168 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} ESGP - Student Calculate Prediction {% endblock title %}
+
+{% block seperate_css %} 
+<style>
+body {
+  background: url('/static/esgpapp/images/student_predection.jpeg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+    
+</style>
+{% endblock seperate_css %}
+
+{% block seperate_contant %}
+
+<div class="container">
+    <br/>
+
+    {% for message in messages  %}
+        <div class="alert alert-info" role="alert">
+            <strong 
+            {% if message.tags %}class ='{{message.tags}}'{% endif %}>
+            {{message}}
+            </strong>
+        </div>
+    {% endfor %}
+    
+    <h2> Fill Fill This Form To Get Prediction </h2>
+    <br/>
+    <form  action="{% url 'upload_student_data' %}" method='post'> {% csrf_token %}
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Student ID</label>
+                            <input type="number" class="form-control" name ="s_id" required autocomplete="off" autofocus>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Student Name</label>
+                            <input type="text" class="form-control" name="s_name"  required autocomplete="off"> 
+                        </div>
+                    </div>
+                </div>
+                
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Total Quizzes</label>
+                            <input type="number" class="form-control" name ="total_q" required autocomplete="off" autofocus>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <label class="form-control-label">Given Quizzes</label>
+                                <input type="number" class="form-control" name="given_q"  required autocomplete="off"> 
+                        </div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Total Mark of Quizzes</label>
+                                <input type="number" class="form-control" name="total_marks_of_q"  required autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Obtain Mark of Quizzes</label>
+                                <input type="number" class="form-control" name="obtain_marks_of_q"  required autocomplete="off">
+                            </div>
+                        </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <label class="form-control-label">Total Assignments</label>
+                                <input type="number" class="form-control" name ="total_a" required autocomplete="off" autofocus>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Given Assignments</label>
+                            <input type="number" class="form-control" name="given_a"  required autocomplete="off"> 
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Total Mark of Assignments</label>
+                            <input type="number" class="form-control" name="total_marks_of_a"  required autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Obtain Mark of Assignments</label>
+                            <input type="number" class="form-control" name="obtain_marks_of_a"  required autocomplete="off">
+                        </div>
+                    </div>
+
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Total Classes</label>
+                            <input type="number" class="form-control" name="total_classes"  required autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Taken Classes</label>
+                            <input type="number" class="form-control" name="taken_classes"  required autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Previous Grades</label>
+                            <input type="number" class="form-control" name="previous_grades"  required autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row" style="text-align:center;">
+                    <div class="col-md-12">
+                        <button id="a_prediction" class="btn btn-outline-primary"><i class="fas fa-get-pocket"></i> Get Prediction </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+            </div>
+        </div>
+
+    </form>
+    
+</div>
+
+
+{% endblock seperate_contant %}
+
+{% block seperate_javascript %} {% endblock seperate_javascript %}

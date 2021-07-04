@@ -1,0 +1,99 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} ESGP - Student Calculate Prediction {% endblock title %}
+
+{% block seperate_css %} 
+
+<style>
+
+body {
+  background: url('/static/esgpapp/images/prediction.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+.first_td{
+    width:200px;
+    text-align:right;
+}
+.second_td{
+    width: 20px;
+    text-align: center;
+}
+td{
+    padding:10px;
+}
+#hr{
+    margin-top:100px;
+}
+</style>
+
+
+
+{% endblock seperate_css %}
+
+{% block seperate_contant %}
+
+<div class="container">
+    <br/>
+
+    {% if predict_data is none %}
+        <a href="{% url 'cal_pre' %}" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i> Go Back To Prediction </a>
+
+    {% else %}
+    <hr id="hr">
+        <div id="table_div">
+            <table >
+                <tr>
+                    <td colspan="3" style="text-align:center;">
+                        <h1>Result</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_td"><b>Student Name</b></td>
+                    <td class="second_td"> : </td>
+                    <td><u>{{predict_data.student_name}}</u></td>
+                </tr>
+                <tr>
+                    <td class="first_td"><b>Student Id</b></td>
+                    <td class="second_td"> : </td>
+                    <td><u>{{predict_data.student_id}}</u></td>
+                </tr>
+                <tr>
+                    <td class="first_td"><b>Predicted Grade %</b></td>
+                    <td class="second_td"> : </td>
+                    <td><u>{{predict_data.predicted_grads|floatformat:3}} %</u></td>
+                </tr>
+                <tr>
+                    <td class="first_td"><b>Grade</b></td>
+                    <td class="second_td"> : </td>
+                    <td><u>{{predict_data.grades}}</u></td>
+                </tr>
+                <tr>
+                    <td class="first_td"><b>Remedial Plan</b></td>
+                    <td class="second_td"> : </td>
+                    <td><u>{{predict_data.remedial_plan}}</u></td>
+                </tr>
+            </table>
+        </div>
+        
+        <br/>
+        <hr/>
+        <a style='display: none' id = 'download' href='{% url 'export' %}' class="btn btn-outline-primary">Download</a>
+    {% endif %}
+</div>
+
+
+{% endblock seperate_contant %}
+
+{% block seperate_javascript %}
+<script>
+
+$(document).ready(function(){
+    $("#download")[0].click()
+});
+
+</script>
+
+{% endblock seperate_javascript %}

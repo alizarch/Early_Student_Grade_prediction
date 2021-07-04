@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} ESGP - Dashboard {% endblock title %}
+
+{% block seperate_css %} 
+
+
+{% if name.faculty_or_student == 'Student' %} 
+    <style>
+        body{
+            background: url('/static/esgpapp/images/s_dashboard_1.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+        #name_of_user{
+            text-transform: uppercase;
+            color: darkslategray;
+            text-align: center;
+            margin-top: 115px;
+        }
+        #cal_pre_div{
+             text-align: center;
+        }
+        #cal_pre_btn{
+            color: darkslategray;
+        }
+    </style>
+{% else %} 
+    <style>
+        body{
+            background: url('/static/esgpapp/images/f_dashboard.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+        #name_of_user{
+            text-transform: uppercase;
+            color: floralwhite;
+            text-align: center;
+            margin-top: 115px;
+        }
+        #cal_pre_div{
+             text-align: center;
+        }
+        #cal_pre_btn{
+            color:floralwhite;
+        }
+    </style> 
+{% endif %}
+
+{% endblock seperate_css %}
+
+{% block seperate_contant %}
+
+<div class="container">
+      
+    {% for message in messages  %}
+    <div class="alert alert-success" role="alert">
+    <strong 
+    {% if message.tags %}class ='{{message.tags}}'{% endif %}>
+    {{message}}
+    </strong>
+    </div>
+    {% endfor %}
+    {% comment %}  {% endcomment %}
+    
+    <br/>
+    
+    <h2 id='name_of_user'>WELCOME <u>{{name}}</u> TO THE ESGP</h2><br><br>
+
+    <div id='cal_pre_div'>
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            
+            <a href="{% url 'cal_pre' %}" id="cal_pre_btn" type="button" class="btn btn-outline-info animate__animated animate__flipInX">
+                <i class="fas fa-poll fa-2x"></i>
+                <b>Calculate Prediction</b>
+            </a>
+        </div>
+    </div>
+    
+</div>
+    
+
+
+{% endblock seperate_contant %}
+
+{% block seperate_javascript %} {% endblock seperate_javascript %}

@@ -1,0 +1,103 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} ESGP - Student Calculate Prediction {% endblock title %}
+
+{% block seperate_css %} 
+<style>
+
+body {
+  background: url('/static/esgpapp/images/prediction.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+</style>
+{% endblock seperate_css %}
+
+{% block seperate_contant %}
+
+<div class="container">
+    <br/>
+    <div id="instructions">
+        <h4> Instructions </h4>
+        <p><b>Step 1:</b> Make excel file having following columns (order of columns must be same):</p>
+
+        <ol>
+            <li>Student ID</li>
+            <li>Student Name</li>
+            <li>Total Quizzes</li>
+            <li>Given Quizzes</li>
+            <li>Total Marks of Quizzes</li>
+            <li>Obtain Marks in Quizzes</li>
+            <li>Total Assignments</li>
+            <li>Given Assignments</li>
+            <li>Total Marks of Assignments</li>
+            <li>Obtain Marks in Assignments</li>
+            <li>Total Classes</li>
+            <li>Taken Classes</li>
+            <li>Previous Grades</li>
+        </ol>
+        <p><b>Step 2:</b> Save as excel file (save as type must be <b>CSV UTF-8</b>)</p>
+        <p><b>Step 3:</b> Upload saved file to get prediction</p>
+    </div>
+    
+    <hr/>
+
+    <div>
+        {% for message in messages  %}
+            <div class="alert alert-info" role="alert">
+                <strong 
+                    {% if message.tags %}class ='{{message.tags}}'{% endif %}>
+                    {{message}}
+                </strong>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <br/>
+    
+    <form id="fac_prediction_form" action="{% url 'upload_csv_file' %}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <label for="upload_file" class="form-label"><i class="fas fa-file-upload"></i> Upload Excel File Here</label>
+                <input class="form-control form-control-md" id="upload_file" type="file" name="student_file" required>
+                
+            </div>
+            <div class="col-md-6">
+                <label  class="form-label"><i class="fab fa-tencent-weibo"></i> Action Button</label><br/>
+                <a id="a_prediction" onclick="submitFacPredictionForm()" class="btn btn-outline-primary"><i class="fas fa-get-pocket"></i> Get Prediction </a>
+            </div>
+        </div>
+    </form>
+
+    {% if flag == True %}
+        <a style='display: none' id = 'download' href='{% url 'export' %}' class="btn btn-outline-primary">Download</a>
+    {% endif %}
+
+</div>
+
+
+{% endblock seperate_contant %}
+
+{% block seperate_javascript %} 
+
+<script>
+    $(document).ready(function(){
+        $("#download")[0].click()
+    });
+
+    function submitFacPredictionForm(){
+        var file = $('#upload_file').val();
+        if(file == ''){
+            swal("Oops!", "Please choose excel file", "error");
+            return;
+        }
+        $('#a_prediction').html('<i class="fas fa-get-pocket"></i> Predicting... ');
+        $("#a_prediction").css({"pointer-events": "none"});
+        $('form#fac_prediction_form').submit();
+    }
+
+</script>
+
+{% endblock seperate_javascript %}
